@@ -8,11 +8,14 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^4.1.0",
     "gulp-run-command": "0.0.9",
     "gulp-sass": "^3.1.0",
     "gulp-sass-glob": "^1.0.8",
     "gulp-uglify": "^3.0.0",
     "kss": "^3.0.0-beta.18",
     "pump": "^2.0.0"
-  }
+  },
+  "dependencies": {}
 }

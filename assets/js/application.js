@@ -1,1 +1,0 @@
-$(".test").hide();var test=document.length;
