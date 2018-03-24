@@ -1,0 +1,39 @@
+#kss-node
+    .kss
+
+        &-parameters
+
+            &__title
+                background-color: $brand
+                box-sizing: border-box
+                color: #fff
+                font-size: 14px
+                font-weight: 300
+                margin-top: 40px
+                max-width: 600px
+                padding: 5px 10px
+
+            &:not(.kss-colors-container)
+                background-color: #fff
+                display: table
+                list-style: none
+                margin: 0 0
+                max-width: 600px
+                padding: 0
+                width: 100%
+
+                code
+                    color: $brand
+
+                .kss-parameters
+
+                    &__item
+                        display: table-row
+
+                        &:nth-child(2n)
+                            background-color: $black-haze
+
+                    &__name,
+                    &__description
+                        display: table-cell
+                        padding: 5px 10px

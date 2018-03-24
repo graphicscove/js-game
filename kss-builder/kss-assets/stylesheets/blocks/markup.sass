@@ -1,0 +1,43 @@
+#kss-node
+    .kss
+
+        &-markup
+            border: 1px solid darken($lily-white, 10%)
+            margin-top: 40px
+
+            summary
+                background-color: #fff
+                cursor: pointer
+                font-size: 14px
+                outline: none
+                padding: 10px
+
+                code
+                    color: $brand
+
+            pre
+                border-top: 1px solid darken($lily-white, 10%)
+                display: block
+                font-size: 12px
+                margin: 0
+
+            .hljs
+                line-height: 1.4
+                padding: 10px
+
+                ::selection
+                    background-color: #31454a
+
+                ::-moz-selection
+                    background-color: #31454a
+
+            @media(max-width: 767px)
+                margin-top: 20px
+
+                summary
+                    font-size: 12px
+
+                pre
+                    font-size: 10px
+
+

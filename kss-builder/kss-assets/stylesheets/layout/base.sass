@@ -1,0 +1,96 @@
+#kss-node
+    background-color: $lily-white
+    padding-top: 0
+
+    .kss
+        &-wrapper
+            padding-left: 300px
+
+        &-sidebar
+            background-color: #fff
+            bottom: 0
+            display: flex
+            flex-direction: column
+            left: 0
+            position: fixed
+            top: 0
+            width: 300px
+
+        &-main
+            padding: 40px
+
+        &-section
+            background-color: rgba(#fff, .9)
+            border-bottom: 1px solid darken($lily-white, 10%)
+            padding: 40px
+
+            &:first-child
+                border-top: none
+
+            &--depth-2
+                padding: 40px 40px 40px 80px
+
+            &--depth-3
+                padding: 40px 40px 40px 160px
+
+        @media(max-width: 1279px)
+
+            &-wrapper
+                padding-left: 260px
+
+            &-sidebar
+                width: 260px
+
+            &-section
+                padding: 30px
+
+                &--depth-2
+                    padding: 30px 30px 30px 60px
+
+                &--depth-3
+                    padding: 30px 30px 30px 120px
+
+        @media(max-width: 1023px)
+
+            &-wrapper
+                padding-left: 0
+
+            &-sidebar
+                position: static
+                width: auto
+
+            &-main
+                padding: 20px
+
+            &-section
+                padding: 20px
+
+                &--depth-2
+                    padding: 20px 20px 20px 40px
+
+                &--depth-3
+                    padding: 20px 20px 20px 80px
+
+        @media(max-width: 568px)
+
+            &-main
+                padding: 10px
+
+            &-section
+                padding: 20px 10px
+
+                &--depth-2
+                    padding: 20px 10px
+
+                &--depth-3
+                    padding: 20px 10px
+
+
+    &.kss-fullscreen-mode
+        .kss-sidebar
+            display: none
+
+        .kss-wrapper
+            padding-left: 0
+
+

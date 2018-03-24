@@ -1,0 +1,76 @@
+#kss-node
+    .kss
+
+        &-toolbar
+            display: flex
+            margin: 0 0 0 auto
+
+            a
+                height: 16px
+                margin-right: 10px
+                padding: 3px
+                position: relative
+                width: 16px
+
+                &:last-child
+                    margin-right: 0
+
+                svg
+                    display: block
+                    fill: #fff
+                    opacity: .75
+                    transition: opacity .2s
+
+                &:hover
+                    svg
+                        opacity: 1
+
+                    .kss-toolbar__tooltip
+                        opacity: 1
+
+            &__tooltip
+                background-color: #fff
+                bottom: 100%
+                color: $cinder
+                font-size: 12px
+                font-weight: 600
+                margin-bottom: 10px
+                opacity: 0
+                padding: 10px
+                pointer-events: none
+                position: absolute
+                right: -10px
+                transition: opacity .2s
+                white-space: nowrap
+
+                &:after
+                    background-color: #fff
+                    content: ''
+                    height: 10px
+                    margin-top: -5px
+                    position: absolute
+                    right: 16px
+                    top: 100%
+                    transform: rotate(45deg)
+                    width: 10px
+
+    &.kss-fullscreen-mode
+
+        .kss-toolbar
+            a[data-kss-fullscreen]
+                svg
+                    opacity: 1
+
+    &.kss-guides-mode
+
+        .kss-toolbar
+            a[data-kss-guides]
+                svg
+                    opacity: 1
+
+    &.kss-markup-mode
+
+        .kss-toolbar
+            a[data-kss-markup]
+                svg
+                    opacity: 1

@@ -1,0 +1,71 @@
+#kss-node
+    .kss
+
+        &-modifier
+
+            &__wrapper
+                background-color: #fff
+                border: 1px solid darken($lily-white, 10%)
+                margin-top: 40px
+                padding: 0 20px 20px
+
+                &.dark
+                    background-color: #24292e
+                    border-color: #24292e
+
+                    .kss-modifier__description
+                        color: #fff
+
+                    .kss-modifier__description
+                        border-color: lighten(#24292e, 10%)
+
+                @media(max-width: 767px)
+                    margin-top: 20px
+
+            &__heading
+                align-items: center
+                background-color: $brand
+                color: #fff
+                display: flex
+                font-size: 14px
+                font-weight: 300
+                line-height: 1
+                margin: -1px -21px 20px
+                padding: 10px 20px 12px
+
+                .kss-toolbar
+                    margin-left: auto
+
+            &__example
+                border: 1px dashed transparent
+                clear: both
+                margin-bottom: 20px
+                transform: translate3d(0,0,0)
+
+                &:last-child
+                    margin-bottom: 0
+
+            &__default-name,
+            &__name
+                color: $brand
+                font-size: 14px
+                font-weight: 600
+                margin-bottom: 10px
+
+            &__name
+                float: left
+                line-height: 1.2
+                margin-bottom: 0
+                margin-right: 10px
+                padding-top: 21px
+
+            &__description
+                border-top: 1px solid $lily-white
+                font-size: 14px
+                line-height: 1.2
+                margin-bottom: 10px
+                padding-top: 20px
+
+    &.kss-guides-mode
+        .kss-modifier__example
+            border-color: $brand

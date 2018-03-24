@@ -1,0 +1,82 @@
+#kss-node
+
+    .kss
+        &-style
+            color: $cinder
+            font-family: $font
+
+        &-title
+            font-size: 40px
+            font-weight: 400
+            line-height: 1.2
+            margin: 0
+
+            &--level-2
+                font-size: 36px
+
+            &--level-3
+                font-size: 30px
+
+            a
+                color: $cinder
+                text-decoration: none
+
+                &:hover
+                    .kss-title__permalink-hash
+                        display: inline
+
+            &__ref
+                color: $brand
+                display: block
+                font-size: 14px
+                font-weight: 600
+                line-height: 1
+
+                &:before
+                    content: 'Section'
+
+            &__permalink-hash
+                color: lighten($cinder, 25%)
+                display: none
+
+        &-source
+            font-size: 14px
+            margin-top: 20px
+
+            code
+                color: $brand
+
+        &-description
+            font-size: 14px
+            margin: 20px 0 0
+
+            code
+                color: $brand
+
+            p
+                margin: 0 0 20px
+
+                &:last-child
+                    margin-bottom: 0
+
+        @media(max-width: 767px)
+
+            &-title
+                font-size: 30px
+
+                &--level-2
+                    font-size: 26px
+
+                &--level-3
+                    font-size: 20px
+
+                &__ref
+                    font-size: 12px
+
+            &-source
+                font-size: 12px
+                margin-top: 10px
+
+            &-description
+                font-size: 12px
+                margin-top: 10px

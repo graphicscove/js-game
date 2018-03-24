@@ -1,0 +1,41 @@
+#kss-node
+    .kss
+
+        &-header
+            box-sizing: border-box
+            color: $cinder
+            padding: 40px 20px 20px
+            text-align: center
+
+            img
+                display: block
+                margin: 0 auto 40px
+                max-width: 100%
+
+        &-doc-title
+            font-size: 20px
+            font-weight: 400
+            letter-spacing: .5px
+            line-height: 1
+            margin: 0
+
+            span
+                color: $brand
+
+        @media(max-width: 1023px)
+
+            &-header
+                padding: 10px 20px
+                display: flex
+                align-items: center
+
+                img
+                    margin: 0
+                    max-width: 100px
+                    max-height: 75px
+
+            &-doc-title
+                margin-left: auto
+                font-size: 16px
+
+
