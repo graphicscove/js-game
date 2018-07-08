@@ -241,6 +241,9 @@ template, [hidden] {
 
 /**
  * Add the correct display in IE 10. */
+.flex {
+  display: flex; }
+
 html {
   font-family: sans-serif;
   font-size: 14px;
@@ -256,42 +259,3 @@ h1 {
 .editable {
   text-decoration: underline;
   text-decoration-style: dotted; }
-
-.accordion {
-  margin: 1rem 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid #e5e5e5;
-  max-width: 500px; }
-
-.accordion-item {
-  border-bottom: 1px solid #e5e5e5; }
-
-/* Thumb */
-.accordion-thumb {
-  margin: 0;
-  padding: .8rem 0;
-  cursor: pointer;
-  font-weight: normal; }
-  .accordion-thumb::before {
-    content: '';
-    display: inline-block;
-    height: 7px;
-    width: 7px;
-    margin-right: 1rem;
-    margin-left: .5rem;
-    vertical-align: middle;
-    border-right: 1px solid;
-    border-bottom: 1px solid;
-    transform: rotate(-45deg);
-    transition: transform .2s ease-out; }
-
-/* Panel */
-.accordion-panel {
-  margin: 0;
-  padding-bottom: .8rem;
-  display: none; }
-
-/* Active */
-.accordion-item.is-active .accordion-thumb::before {
-  transform: rotate(45deg); }

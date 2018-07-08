@@ -4,36 +4,37 @@ class Game {
         this.city = {
             id: 1,
             name: 'Mercia',
-            resources:  {'food': 100, 'wood': 200, 'stone': 100, 'ore': 100, 'gold': 0 },
+            location: '1:1',
+            resources:  {'food': 100, 'wood': 200, 'stone': 0, 'ore': 0, 'gold': 0 },
             buildings: {
-                'farm': {
+                farm: {
                     name: 'Farm',
                     resource: 'food',
-                    level: 1,
+                    level: 0,
                     output: 2
                 },
-                'forest': {
+                forest: {
                     name: 'forest',
                     resource: 'wood',
-                    level: 1,
+                    level: 0,
                     output: 1.5
                 },
-                'stonemine': {
+                stonemine: {
                     name: 'Stone Mine',
                     resource: 'stone',
-                    level: 1,
+                    level: 0,
                     output: 1
                 },
-                'oremine': {
+                oremine: {
                     name: 'Ore Mine',
                     resource: 'ore',
-                    level: 1,
-                    output: 1
+                    level: 0,
+                    output: 0.75
                 },
-                'goldmine': {
+                goldmine: {
                     name: 'Gold Mine',
                     resource: 'gold',
-                    level: 1,
+                    level: 0,
                     output: 0.25
                 }
             }
@@ -55,7 +56,8 @@ class Game {
     cityInfo() {
         this.cityTemplate = `<p>
         <span>City ID: ${this.city.id}</span> |
-        <span>City Name: ${this.city.name}</span>
+        <span>City Name: ${this.city.name}</span> |
+        <span>City Location: ${this.city.location}</span>
         </p>`
 
         $('[data-element="city"]').html(this.cityTemplate)
@@ -111,11 +113,30 @@ class Game {
         this.resourceInfo()
     }
 
+    // Upgrade a buildings level
     buildingsUpgrade = (e) => {
+        $(e.currentTarget).attr('disabled', true)
         const upgradeType = $(e.currentTarget).data('type')
         const newLevel = this.city.buildings[upgradeType].level + 1
-        this.city.buildings[upgradeType].level = Number(Object.assign(newLevel, this.city.buildings[upgradeType].level))
-        this.buildingsInfo()
+        let timer = 0
+        if (this.city.buildings[upgradeType].level === 0 ) {
+            timer = 1000
+            setTimeout(function(){
+                updateLevel()
+            }, timer);
+        } else {
+            timer = this.city.buildings[upgradeType].level * newLevel + '000'
+            setTimeout(function(){
+                updateLevel()
+            }, timer);
+        }
+        const self = this
+
+        function updateLevel() {
+            self.city.buildings[upgradeType].level = Number(Object.assign(newLevel, self.city.buildings[upgradeType].level))
+            self.buildingsInfo()
+        }
+
     }
 
     saveGame = (e) => {
