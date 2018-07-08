@@ -8,6 +8,8 @@ const run = require('gulp-run-command').default;
 const kss = require('kss')
 const gulpif = require('gulp-if')
 const imagemin = require('gulp-imagemin')
+const babel = require('gulp-babel')
+const bro = require('gulp-bro')
 
 const onError = (err) => {
     console.log(err);
@@ -68,6 +70,13 @@ gulp.task('js', function (cb) {
   pump([
         gulp.src('./ui/javascripts/*.js'),
         concat('application.js'),
+        bro({
+            error: 'emit',
+            transform: [
+                ['babelify', { presets: ['env'], plugins: ['transform-class-properties'] }],
+                ['browserify-shim', { global: true }]
+            ]
+        }),
         uglify(),
         gulp.dest('./assets/js')
     ],

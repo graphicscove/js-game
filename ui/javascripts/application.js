@@ -1,1 +1,2 @@
-$('.test').hide();
+// General
+import './modules/game'

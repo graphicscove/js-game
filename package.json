@@ -6,7 +6,15 @@
   "license": "ISC",
   "homepage": "https://github.com/graphicscove/ui-boilerplate",
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babelify": "^8.0.0",
+    "browserify": "^16.1.1",
+    "browserify-shim": "^3.8.14",
     "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-bro": "^1.0.3",
     "gulp-concat": "^2.6.1",
     "gulp-if": "^2.0.2",
     "gulp-imagemin": "^4.1.0",
@@ -17,5 +25,13 @@
     "kss": "^3.0.0-beta.18",
     "pump": "^2.0.0"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "jquery": "global:$"
+  }
 }
