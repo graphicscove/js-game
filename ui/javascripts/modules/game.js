@@ -1,21 +1,13 @@
+import Notification from './notification'
+
 class Game {
     constructor() {
-
-        // Get the data
-        fetch('../../data.json')
-            .then(function(response) {
-                console.log(response);
-            return response.json();
-        })
-        .then(function(myJson) {
-            console.log(myJson);
-        });
         // Set up some defaults for a new city
         this.city = {
             id: 1,
             name: 'Mercia',
             location: '1:1',
-            resources:  {'food': 100, 'wood': 200, 'stone': 0, 'ore': 0, 'gold': 0 },
+            resources:  {'food': 200, 'wood': 200, 'stone': 0, 'ore': 0, 'gold': 0 },
             buildings: {
                 farm: {
                     name: 'Farm',
@@ -24,10 +16,10 @@ class Game {
                     output: 2,
                     cost: {
                         food: 200,
-                        wood: 200,
-                        stone: 200,
-                        ore: 200,
-                        gold: 200
+                        wood: 100,
+                        stone: 0,
+                        ore: 0,
+                        gold: 0
                     },
                     costMultiplier: 1.25
                 },
@@ -35,25 +27,57 @@ class Game {
                     name: 'forest',
                     resource: 'wood',
                     level: 0,
-                    output: 1.5
+                    output: 1.5,
+                    cost: {
+                        food: 200,
+                        wood: 100,
+                        stone: 0,
+                        ore: 0,
+                        gold: 0
+                    },
+                    costMultiplier: 1.5
                 },
                 stonemine: {
                     name: 'Stone Mine',
                     resource: 'stone',
                     level: 0,
-                    output: 1
+                    output: 1,
+                    cost: {
+                        food: 200,
+                        wood: 100,
+                        stone: 0,
+                        ore: 0,
+                        gold: 0
+                    },
+                    costMultiplier: 1.75
                 },
                 oremine: {
                     name: 'Ore Mine',
                     resource: 'ore',
                     level: 0,
-                    output: 0.75
+                    output: 0.75,
+                    cost: {
+                        food: 200,
+                        wood: 100,
+                        stone: 0,
+                        ore: 0,
+                        gold: 0
+                    },
+                    costMultiplier: 2
                 },
                 goldmine: {
                     name: 'Gold Mine',
                     resource: 'gold',
                     level: 0,
-                    output: 0.25
+                    output: 0.25,
+                    cost: {
+                        food: 200,
+                        wood: 100,
+                        stone: 0,
+                        ore: 0,
+                        gold: 0
+                    },
+                    costMultiplier: 2.5
                 }
             }
         }
@@ -74,7 +98,7 @@ class Game {
     cityInfo() {
         this.cityTemplate = `<p>
         <span>City ID: ${this.city.id}</span> |
-        <span>City Name: ${this.city.name}</span> |
+        <span>City Name: <span contenteditable="true" class="editable">${this.city.name}</span></span> |
         <span>City Location: ${this.city.location}</span>
         </p>`
 
@@ -107,11 +131,11 @@ class Game {
         // });
 
         this.buildingTemplate = `
-        <div>Farm Level ${this.city.buildings.farm.level} <button data-behaviour="upgrade" data-type="farm">Upgrade ${this.city.buildings.farm.name}</button></div>
-        <div>Forest level ${this.city.buildings.forest.level} <button data-behaviour="upgrade" data-type="forest">Upgrade ${this.city.buildings.forest.name}</button></div>
-        <div>Stone Mine level ${this.city.buildings.stonemine.level} <button data-behaviour="upgrade" data-type="stonemine">Upgrade ${this.city.buildings.stonemine.name}</button></div>
-        <div>Ore Mine level ${this.city.buildings.oremine.level} <button data-behaviour="upgrade" data-type="oremine">Upgrade ${this.city.buildings.oremine.name}</button></div>
-        <div>Gold Mine level ${this.city.buildings.goldmine.level} <button data-behaviour="upgrade" data-type="goldmine">Upgrade ${this.city.buildings.goldmine.name}</button></div>
+        <div class="grid grid--space-between">Farm Level ${this.city.buildings.farm.level} <button data-behaviour="upgrade" data-type="farm" class="button">Upgrade ${this.city.buildings.farm.name}</button></div>
+        <div class="grid grid--space-between">Forest level ${this.city.buildings.forest.level} <button data-behaviour="upgrade" data-type="forest">Upgrade ${this.city.buildings.forest.name}</button></div>
+        <div class="grid grid--space-between">Stone Mine level ${this.city.buildings.stonemine.level} <button data-behaviour="upgrade" data-type="stonemine">Upgrade ${this.city.buildings.stonemine.name}</button></div>
+        <div class="grid grid--space-between">Ore Mine level ${this.city.buildings.oremine.level} <button data-behaviour="upgrade" data-type="oremine">Upgrade ${this.city.buildings.oremine.name}</button></div>
+        <div class="grid grid--space-between">Gold Mine level ${this.city.buildings.goldmine.level} <button data-behaviour="upgrade" data-type="goldmine">Upgrade ${this.city.buildings.goldmine.name}</button></div>
         `
 
         $('[data-element="buildings"]').html(this.buildingTemplate)
@@ -135,47 +159,24 @@ class Game {
     buildingsUpgrade = (e) => {
         const upgradeType = $(e.currentTarget).data('type')
         const newLevel = this.city.buildings[upgradeType].level + 1
-        const cost = this.city.buildings[upgradeType].cost
-        const costMultiplier = this.city.buildings[upgradeType].costMultiplier
         let timer = 0
         const self = this
 
-        console.log(cost);
-        console.log(costMultiplier);
+        // Check to see if there are enough resources
+        if (this.city.resources.food < this.city.buildings[upgradeType].cost.food * newLevel) {
+            new Notification('Sorry, no resources')
+            return false;
+        }
 
-        // Disable clicking the button again before the upgrade is complete
-        $(e.currentTarget).attr('disabled', true)
+        // Disable clicking any upgrade button again before the upgrade is complete
+        $('[data-behaviour="upgrade"]').attr('disabled', true)
 
-        // Get upgrade resource requirements
-        Object.keys(this.city.buildings).map(function(objectKey, index) {
-            console.log(objectKey);
-            console.log(self.city.buildings[upgradeType].cost.food);
-            console.log(self.city.buildings[upgradeType].cost.wood);
-            console.log(self.city.buildings[upgradeType].cost.stone);
-            console.log(self.city.buildings[upgradeType].cost.ore);
-            console.log(self.city.buildings[upgradeType].cost.gold);
-            // const output = self.city.buildings[objectKey].output
-            // const resource = self.city.buildings[objectKey].resource
-            // const resourceValue = self.city.resources[resource]
-            //
-            // self.city.resources[resource] = Number(resourceValue + (level * output))
-        });
-
-        // cost x costMultiplier
-
-        // Object.keys(this.city.buildings).map(function(objectKey, index) {
-        //     const level = self.city.buildings[objectKey].level
-        //     const output = self.city.buildings[objectKey].output
-        //     const resource = self.city.buildings[objectKey].resource
-        //     const resourceValue = self.city.resources[resource]
-        //
-        //     self.city.resources[resource] = Number(resourceValue + (level * output))
-        // });
-
-        // Remove resources from the resporce pool
-
-        // Update new resource totals
-        this.resourceInfo()
+        // Remove resources from pool to intiate upgrade
+        this.city.resources.food -= this.city.buildings[upgradeType].cost.food * newLevel
+        this.city.resources.wood -= this.city.buildings[upgradeType].cost.wood * newLevel
+        this.city.resources.stone -= this.city.buildings[upgradeType].cost.stone * newLevel
+        this.city.resources.ore -= this.city.buildings[upgradeType].cost.ore * newLevel
+        this.city.resources.gold -= this.city.buildings[upgradeType].cost.gold * newLevel
 
         if (this.city.buildings[upgradeType].level === 0 ) {
             timer = 1000
@@ -188,10 +189,14 @@ class Game {
                 updateLevel()
             }, timer);
         }
+
         function updateLevel() {
             self.city.buildings[upgradeType].level = Number(Object.assign(newLevel, self.city.buildings[upgradeType].level))
             self.buildingsInfo()
         }
+
+        // Update new resource totals
+        this.resourceInfo()
 
     }
 

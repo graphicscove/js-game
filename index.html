@@ -9,14 +9,27 @@
         <link rel="stylesheet" href="assets/css/application.css">
     </head>
     <body>
-        <div data-element="city"></div>
-        <div data-element="resources"></div>
-        <div data-element="buildings"></div>
-        <div data-element="hidden"></div>
+        <div class="wrapper">
+            <div data-element="city"></div>
+            <div data-element="resources"></div>
+            <div class="notification" data-element="notification">
+                <span data-element="custom-response">{A custom response goes here}</span>
+                <span data-behaviour="close-notification" class="close">X</span>
+            </div>
+            <div data-element="buildings"></div>
+            <div data-element="hidden"></div>
 
-        <p><label>Export your save game data here</label><br/>
-        <button data-behaviour="save-game">Save Game</button>
-        <button data-behaviour="load-save">Load Save</button></p>
+            <p><label>Export your save game data here</label><br/>
+            <div class="grid">
+                <button data-behaviour="save-game" class="button button--full">Save Game</button>
+                <button data-behaviour="load-save" class="button button--full">Load Save</button></p>
+            </div>
+        </div>
+
+        <!-- Load React. -->
+        <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+        <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 
         <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
         <script src="assets/js/application.js"></script>
