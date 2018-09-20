@@ -241,9 +241,6 @@ template, [hidden] {
 
 /**
  * Add the correct display in IE 10. */
-.flex {
-  display: flex; }
-
 html {
   font-family: sans-serif;
   font-size: 14px;

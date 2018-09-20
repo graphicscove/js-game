@@ -1,5 +1,15 @@
 class Game {
     constructor() {
+
+        // Get the data
+        fetch('../../data.json')
+            .then(function(response) {
+                console.log(response);
+            return response.json();
+        })
+        .then(function(myJson) {
+            console.log(myJson);
+        });
         // Set up some defaults for a new city
         this.city = {
             id: 1,
@@ -11,7 +21,15 @@ class Game {
                     name: 'Farm',
                     resource: 'food',
                     level: 0,
-                    output: 2
+                    output: 2,
+                    cost: {
+                        food: 200,
+                        wood: 200,
+                        stone: 200,
+                        ore: 200,
+                        gold: 200
+                    },
+                    costMultiplier: 1.25
                 },
                 forest: {
                     name: 'forest',
@@ -115,10 +133,50 @@ class Game {
 
     // Upgrade a buildings level
     buildingsUpgrade = (e) => {
-        $(e.currentTarget).attr('disabled', true)
         const upgradeType = $(e.currentTarget).data('type')
         const newLevel = this.city.buildings[upgradeType].level + 1
+        const cost = this.city.buildings[upgradeType].cost
+        const costMultiplier = this.city.buildings[upgradeType].costMultiplier
         let timer = 0
+        const self = this
+
+        console.log(cost);
+        console.log(costMultiplier);
+
+        // Disable clicking the button again before the upgrade is complete
+        $(e.currentTarget).attr('disabled', true)
+
+        // Get upgrade resource requirements
+        Object.keys(this.city.buildings).map(function(objectKey, index) {
+            console.log(objectKey);
+            console.log(self.city.buildings[upgradeType].cost.food);
+            console.log(self.city.buildings[upgradeType].cost.wood);
+            console.log(self.city.buildings[upgradeType].cost.stone);
+            console.log(self.city.buildings[upgradeType].cost.ore);
+            console.log(self.city.buildings[upgradeType].cost.gold);
+            // const output = self.city.buildings[objectKey].output
+            // const resource = self.city.buildings[objectKey].resource
+            // const resourceValue = self.city.resources[resource]
+            //
+            // self.city.resources[resource] = Number(resourceValue + (level * output))
+        });
+
+        // cost x costMultiplier
+
+        // Object.keys(this.city.buildings).map(function(objectKey, index) {
+        //     const level = self.city.buildings[objectKey].level
+        //     const output = self.city.buildings[objectKey].output
+        //     const resource = self.city.buildings[objectKey].resource
+        //     const resourceValue = self.city.resources[resource]
+        //
+        //     self.city.resources[resource] = Number(resourceValue + (level * output))
+        // });
+
+        // Remove resources from the resporce pool
+
+        // Update new resource totals
+        this.resourceInfo()
+
         if (this.city.buildings[upgradeType].level === 0 ) {
             timer = 1000
             setTimeout(function(){
@@ -130,8 +188,6 @@ class Game {
                 updateLevel()
             }, timer);
         }
-        const self = this
-
         function updateLevel() {
             self.city.buildings[upgradeType].level = Number(Object.assign(newLevel, self.city.buildings[upgradeType].level))
             self.buildingsInfo()

@@ -1,0 +1,46 @@
+{
+    "id": 1,
+    "name": "Mercia",
+    "location": "1:1",
+    "resources":  {"food": 100, "wood": 200, "stone": 0, "ore": 0, "gold": 0 },
+    "buildings": {
+        "farm": {
+            "name": "Farm",
+            "resource": "food",
+            "level": 0,
+            "output": 2,
+            "cost": {
+                "food": 200,
+                "wood": 180,
+                "stone": 160,
+                "ore": 140,
+                "gold": 120
+            },
+            "costMultiplier": 1.25
+        },
+        "forest": {
+            "name": "forest",
+            "resource": "wood",
+            "level": 0,
+            "output": 1.5
+        },
+        "stonemine": {
+            "name": "Stone Mine",
+            "resource": "stone",
+            "level": 0,
+            "output": 1
+        },
+        "oremine": {
+            "name": "Ore Mine",
+            "resource": "ore",
+            "level": 0,
+            "output": 0.75
+        },
+        "goldmine": {
+            "name": "Gold Mine",
+            "resource": "gold",
+            "level": 0,
+            "output": 0.25
+        }
+    }
+}
