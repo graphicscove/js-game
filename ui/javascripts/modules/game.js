@@ -1,4 +1,4 @@
-import notification from './notification'
+import Notification from './notification'
 
 class Game {
     constructor() {
@@ -24,13 +24,13 @@ class Game {
                     costMultiplier: 1.25
                 },
                 forest: {
-                    name: 'forest',
+                    name: 'Forest',
                     resource: 'wood',
                     level: 0,
                     output: 1.5,
                     cost: {
-                        food: 200,
-                        wood: 100,
+                        food: 100,
+                        wood: 50,
                         stone: 0,
                         ore: 0,
                         gold: 0
@@ -43,8 +43,8 @@ class Game {
                     level: 0,
                     output: 1,
                     cost: {
-                        food: 200,
-                        wood: 100,
+                        food: 100,
+                        wood: 300,
                         stone: 0,
                         ore: 0,
                         gold: 0
@@ -57,9 +57,9 @@ class Game {
                     level: 0,
                     output: 0.75,
                     cost: {
-                        food: 200,
-                        wood: 100,
-                        stone: 0,
+                        food: 100,
+                        wood: 300,
+                        stone: 100,
                         ore: 0,
                         gold: 0
                     },
@@ -71,10 +71,10 @@ class Game {
                     level: 0,
                     output: 0.25,
                     cost: {
-                        food: 200,
-                        wood: 100,
-                        stone: 0,
-                        ore: 0,
+                        food: 500,
+                        wood: 300,
+                        stone: 150,
+                        ore: 50,
                         gold: 0
                     },
                     costMultiplier: 2.5
@@ -122,23 +122,31 @@ class Game {
     // HTML output to show buildings
     buildingsInfo = (e) => {
         const self = this
-        // Object.keys(this.city.buildings).map(function(objectKey, index) {
-        //     const buildingName = self.city.buildings[objectKey].name
-        //     const buildingLevel = self.city.buildings[objectKey].level
-        //
-        //     const test = `<div>${buildingName} Level ${buildingLevel} <button data-behaviour="upgrade" data-type="${buildingName}">Upgrade ${buildingName}</button></div>`
-        //
-        //     $('[data-element="buildings"]').insertAdjacentHTML('beforeend', test);
-        // });
+        this.buildingTemplate = ''
 
-        this.buildingTemplate = `
-        <div class="grid grid--space-between">Farm Level ${this.city.buildings.farm.level} <button data-behaviour="upgrade" data-type="farm" class="button button--primary">Upgrade ${this.city.buildings.farm.name}</button></div>
-        <div class="grid grid--space-between">Forest level ${this.city.buildings.forest.level} <button data-behaviour="upgrade" data-type="forest" class="button button--primary">Upgrade ${this.city.buildings.forest.name}</button></div>
-        <div class="grid grid--space-between">Stone Mine level ${this.city.buildings.stonemine.level} <button data-behaviour="upgrade" data-type="stonemine" class="button button--primary">Upgrade ${this.city.buildings.stonemine.name}</button></div>
-        <div class="grid grid--space-between">Ore Mine level ${this.city.buildings.oremine.level} <button data-behaviour="upgrade" data-type="oremine" class="button button--primary">Upgrade ${this.city.buildings.oremine.name}</button></div>
-        <div class="grid grid--space-between">Gold Mine level ${this.city.buildings.goldmine.level} <button data-behaviour="upgrade" data-type="goldmine" class="button button--primary">Upgrade ${this.city.buildings.goldmine.name}</button></div>
-        `
+        // Show buildings, upgrade requirements and upgrade button
+        Object.keys(this.city.buildings).map(function(objectKey, index) {
+            const name = self.city.buildings[objectKey].name
+            const newLevel = self.city.buildings[objectKey].level + 1
+            self.resourceRequirement = ''
+            self.resourceRequirement += `Food: ${self.city.buildings[objectKey].cost.food * newLevel} `
+            self.resourceRequirement += `Wood: ${self.city.buildings[objectKey].cost.wood * newLevel} `
+            self.resourceRequirement += `Stone: ${self.city.buildings[objectKey].cost.stone * newLevel} `
+            self.resourceRequirement += `Ore: ${self.city.buildings[objectKey].cost.ore * newLevel} `
+            self.resourceRequirement += `Gold: ${self.city.buildings[objectKey].cost.gold * newLevel} `
 
+            const buildingTemplate = `
+            <div class="grid grid--space-between">
+                <div>
+                    <p><strong>${name}</strong> - Level ${self.city.buildings[objectKey].level}<p>
+                    <p>Upgrade Cost: ${self.resourceRequirement}</p>
+                </div>
+                <button data-behaviour="upgrade" data-type="${objectKey}" class="button button--primary">
+                    Upgrade
+                </button>
+            </div>`
+            self.buildingTemplate += buildingTemplate
+        });
         $('[data-element="buildings"]').html(this.buildingTemplate)
     }
 
@@ -160,14 +168,17 @@ class Game {
     buildingsUpgrade = (e) => {
         const upgradeType = $(e.currentTarget).data('type')
         const newLevel = this.city.buildings[upgradeType].level + 1
-        let timer = 0
-        const self = this
 
         // Check to see if there are enough resources
         if (this.city.resources.food < this.city.buildings[upgradeType].cost.food * newLevel) {
-            notification.open('error', 'Not have enough resources')
+            Notification.openNotification('error', 'Not enough resources')
             return false;
         }
+
+        Notification.openNotification('success', `Upgrade of ${upgradeType} in progress`)
+
+        let timer = 0
+        const self = this
 
         // Disable clicking any upgrade button again before the upgrade is complete
         $('[data-behaviour="upgrade"]').attr('disabled', true)
@@ -194,6 +205,7 @@ class Game {
         function updateLevel() {
             self.city.buildings[upgradeType].level = Number(Object.assign(newLevel, self.city.buildings[upgradeType].level))
             self.buildingsInfo()
+            Notification.closeNotification()
         }
 
         // Update new resource totals

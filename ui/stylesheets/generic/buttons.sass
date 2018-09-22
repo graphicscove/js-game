@@ -1,7 +1,6 @@
 .button
     display: inline-block
     padding: 6px 12px
-    margin-bottom: 0
     font-size: 14px
     font-weight: 400
     line-height: 1.2
@@ -14,6 +13,10 @@
     background-image: none
     border: 1px solid transparent
     border-radius: 4px
+    margin-bottom: 20px
+
+    @media(min-width: 600px)
+        margin-bottom: auto
 
     &:active,
     &:focus
@@ -25,8 +28,9 @@
         background-color: #ccd1d9
         border-color: #ccd1d9
 
-    + .button
-        margin-left: 10px
+    @media(min-width: 600px)
+        + .button
+            margin-left: 10px
 
     &--full
         width: 100%
