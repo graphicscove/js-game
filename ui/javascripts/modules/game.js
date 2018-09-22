@@ -1,4 +1,4 @@
-import Notification from './notification'
+import notification from './notification'
 
 class Game {
     constructor() {
@@ -92,6 +92,7 @@ class Game {
 
         window.setInterval(this.resourceProduction, 1000)
 
+        $('.editable').on("keyup", this.cityNameChange);
     }
 
     // HTML output city stats
@@ -131,11 +132,11 @@ class Game {
         // });
 
         this.buildingTemplate = `
-        <div class="grid grid--space-between">Farm Level ${this.city.buildings.farm.level} <button data-behaviour="upgrade" data-type="farm" class="button">Upgrade ${this.city.buildings.farm.name}</button></div>
-        <div class="grid grid--space-between">Forest level ${this.city.buildings.forest.level} <button data-behaviour="upgrade" data-type="forest">Upgrade ${this.city.buildings.forest.name}</button></div>
-        <div class="grid grid--space-between">Stone Mine level ${this.city.buildings.stonemine.level} <button data-behaviour="upgrade" data-type="stonemine">Upgrade ${this.city.buildings.stonemine.name}</button></div>
-        <div class="grid grid--space-between">Ore Mine level ${this.city.buildings.oremine.level} <button data-behaviour="upgrade" data-type="oremine">Upgrade ${this.city.buildings.oremine.name}</button></div>
-        <div class="grid grid--space-between">Gold Mine level ${this.city.buildings.goldmine.level} <button data-behaviour="upgrade" data-type="goldmine">Upgrade ${this.city.buildings.goldmine.name}</button></div>
+        <div class="grid grid--space-between">Farm Level ${this.city.buildings.farm.level} <button data-behaviour="upgrade" data-type="farm" class="button button--primary">Upgrade ${this.city.buildings.farm.name}</button></div>
+        <div class="grid grid--space-between">Forest level ${this.city.buildings.forest.level} <button data-behaviour="upgrade" data-type="forest" class="button button--primary">Upgrade ${this.city.buildings.forest.name}</button></div>
+        <div class="grid grid--space-between">Stone Mine level ${this.city.buildings.stonemine.level} <button data-behaviour="upgrade" data-type="stonemine" class="button button--primary">Upgrade ${this.city.buildings.stonemine.name}</button></div>
+        <div class="grid grid--space-between">Ore Mine level ${this.city.buildings.oremine.level} <button data-behaviour="upgrade" data-type="oremine" class="button button--primary">Upgrade ${this.city.buildings.oremine.name}</button></div>
+        <div class="grid grid--space-between">Gold Mine level ${this.city.buildings.goldmine.level} <button data-behaviour="upgrade" data-type="goldmine" class="button button--primary">Upgrade ${this.city.buildings.goldmine.name}</button></div>
         `
 
         $('[data-element="buildings"]').html(this.buildingTemplate)
@@ -164,7 +165,7 @@ class Game {
 
         // Check to see if there are enough resources
         if (this.city.resources.food < this.city.buildings[upgradeType].cost.food * newLevel) {
-            new Notification('Sorry, no resources')
+            notification.open('error', 'Not have enough resources')
             return false;
         }
 
@@ -198,6 +199,11 @@ class Game {
         // Update new resource totals
         this.resourceInfo()
 
+    }
+
+    cityNameChange = (e) => {
+        const newName = $(e.currentTarget).text()
+        this.city.name = newName
     }
 
     saveGame = (e) => {

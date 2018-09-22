@@ -241,8 +241,45 @@ template, [hidden] {
 
 /**
  * Add the correct display in IE 10. */
-.button--full {
-  width: 100%; }
+.button {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px; }
+  .button:active, .button:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px; }
+  .button:disabled {
+    background-color: #ccd1d9;
+    border-color: #ccd1d9; }
+  .button + .button {
+    margin-left: 10px; }
+  .button--full {
+    width: 100%; }
+  .button--primary {
+    background-color: #3bafda;
+    border-color: #3bafda;
+    color: #fff; }
+  .button--success {
+    background-color: #a0d468;
+    border-color: #a0d468;
+    color: #fff; }
+  .button--error {
+    background-color: #ed5565;
+    border-color: #ed5565;
+    color: #fff; }
 
 html {
   font-family: sans-serif;
@@ -275,14 +312,17 @@ p {
 .notification {
   display: none;
   margin-bottom: 30px;
-  padding: 20px;
-  position: relative; }
+  padding: 6px 12px;
+  font-size: 14px;
+  position: relative;
+  color: white;
+  border-radius: 4px; }
   .notification--error {
-    background-color: red; }
+    background-color: #ed5565; }
   .notification--warning {
-    background-color: yellow; }
+    background-color: #f6bb42; }
   .notification--success {
-    background-color: green; }
+    background-color: #a0d468; }
   .notification .close {
     position: absolute;
     right: 20px;
@@ -291,7 +331,16 @@ p {
     display: block;
     cursor: pointer; }
 
+.buildings {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.24);
+  margin-bottom: 20px; }
+
+.resources {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.24);
+  margin-bottom: 20px; }
+
 .grid {
-  display: flex; }
+  display: flex;
+  margin-bottom: 20px; }
   .grid--space-between {
     justify-content: space-between; }
