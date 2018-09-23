@@ -128,6 +128,7 @@ class Game {
         Object.keys(this.city.buildings).map(function(objectKey, index) {
             const name = self.city.buildings[objectKey].name
             const newLevel = self.city.buildings[objectKey].level + 1
+            let upgradeTime = ''
             self.resourceRequirement = ''
             self.resourceRequirement += `Food: ${self.city.buildings[objectKey].cost.food * newLevel} `
             self.resourceRequirement += `Wood: ${self.city.buildings[objectKey].cost.wood * newLevel} `
@@ -135,10 +136,16 @@ class Game {
             self.resourceRequirement += `Ore: ${self.city.buildings[objectKey].cost.ore * newLevel} `
             self.resourceRequirement += `Gold: ${self.city.buildings[objectKey].cost.gold * newLevel} `
 
+            if (self.city.buildings[objectKey].level * newLevel === 0) {
+                upgradeTime = '1s'
+            } else {
+                upgradeTime = self.city.buildings[objectKey].level * newLevel + 's'
+            }
+
             const buildingTemplate = `
             <div class="grid grid--space-between">
                 <div>
-                    <p><strong>${name}</strong> - Level ${self.city.buildings[objectKey].level}<p>
+                    <p><strong>${name}</strong> - Level ${self.city.buildings[objectKey].level} (${upgradeTime})<p>
                     <p>Upgrade Cost: ${self.resourceRequirement}</p>
                 </div>
                 <button data-behaviour="upgrade" data-type="${objectKey}" class="button button--primary">
@@ -170,14 +177,18 @@ class Game {
         const newLevel = this.city.buildings[upgradeType].level + 1
 
         // Check to see if there are enough resources
-        if (this.city.resources.food < this.city.buildings[upgradeType].cost.food * newLevel) {
+        if (this.city.resources.food < this.city.buildings[upgradeType].cost.food * newLevel ||
+            this.city.resources.wood < this.city.buildings[upgradeType].cost.wood * newLevel ||
+            this.city.resources.stone < this.city.buildings[upgradeType].cost.stone * newLevel ||
+            this.city.resources.ore < this.city.buildings[upgradeType].cost.ore * newLevel ||
+            this.city.resources.gold < this.city.buildings[upgradeType].cost.gold * newLevel) {
             Notification.openNotification('error', 'Not enough resources')
             return false;
         }
 
         Notification.openNotification('success', `Upgrade of ${upgradeType} in progress`)
 
-        let timer = 0
+        let timer = 1000
         const self = this
 
         // Disable clicking any upgrade button again before the upgrade is complete
@@ -190,16 +201,17 @@ class Game {
         this.city.resources.ore -= this.city.buildings[upgradeType].cost.ore * newLevel
         this.city.resources.gold -= this.city.buildings[upgradeType].cost.gold * newLevel
 
-        if (this.city.buildings[upgradeType].level === 0 ) {
-            timer = 1000
-            setTimeout(function(){
-                updateLevel()
-            }, timer);
-        } else {
+        if (this.city.buildings[upgradeType].level > 0 ) {
             timer = this.city.buildings[upgradeType].level * newLevel + '000'
-            setTimeout(function(){
-                updateLevel()
-            }, timer);
+        }
+
+        var tm = setInterval(countDown, 1000);
+        function countDown(){
+           timer -= 1000;
+           if(timer === 0){
+              clearInterval(tm)
+              updateLevel()
+           }
         }
 
         function updateLevel() {
@@ -210,7 +222,6 @@ class Game {
 
         // Update new resource totals
         this.resourceInfo()
-
     }
 
     cityNameChange = (e) => {

@@ -1,11 +1,12 @@
 {
-  "name": "ui-boilerplate",
+  "name": "js-game",
   "version": "0.0.1",
-  "description": "UI Boilerplate",
+  "description": "JS Game",
   "author": "Steven Noble",
   "license": "ISC",
-  "homepage": "https://github.com/graphicscove/ui-boilerplate",
+  "homepage": "https://github.com/graphicscove/js-game",
   "devDependencies": {
+    "@babel/preset-env": "^7.1.0",
     "babel-core": "^6.26.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.1",
