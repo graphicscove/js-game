@@ -85,10 +85,12 @@ class Game {
         this.cityInfo()
         this.resourceInfo()
         this.buildingsInfo()
+        this.marketplaceInfo()
 
         $('body').on('click', '[data-behaviour="upgrade"]', this.buildingsUpgrade)
         $('[data-behaviour="save-game"]').on('click', this.saveGame)
         $('[data-behaviour="load-save"]').on('click', this.loadGame)
+        $('[data-behaviour="purchase"]').on('click', this.purchaseResources)
 
         window.setInterval(this.resourceProduction, 1000)
 
@@ -219,6 +221,33 @@ class Game {
             self.buildingsInfo()
             Notification.closeNotification()
         }
+
+        // Update new resource totals
+        this.resourceInfo()
+    }
+
+    marketplaceInfo = (e) => {
+        this.marketplaceTemplate = `<p>All purchases cost 100 gold</p>
+        <p>
+        <button data-behaviour="purchase" data-resource-type="food">Buy 100 Food</button>
+        <button data-behaviour="purchase" data-resource-type="wood">Buy 100 Wood</button>
+        <button data-behaviour="purchase" data-resource-type="stone">Buy 100 Stone</button>
+        <button data-behaviour="purchase" data-resource-type="ore">Buy 100 Ore</button>
+        </p>`
+        $('[data-element="marketplace"]').html(this.marketplaceTemplate)
+    }
+
+    purchaseResources = (e) => {
+        const resourceType = $(e.currentTarget).data('resource-type')
+        const purchaseCost = this.city.resources.gold - 100
+
+        if ( purchaseCost <= 0) {
+            Notification.openNotification('error', `Not enough gold`)
+            return false
+        }
+
+        this.city.resources[resourceType] += 100
+        this.city.resources.gold -= 100
 
         // Update new resource totals
         this.resourceInfo()

@@ -342,6 +342,10 @@ p {
   border-bottom: 1px solid rgba(0, 0, 0, 0.24);
   margin-bottom: 20px; }
 
+.marketplace {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.24);
+  margin-bottom: 20px; }
+
 .resources {
   border-bottom: 1px solid rgba(0, 0, 0, 0.24);
   margin-bottom: 20px; }
@@ -352,3 +356,7 @@ p {
     margin-bottom: 20px; }
     .grid--space-between {
       justify-content: space-between; } }
+
+.section {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.24);
+  margin-bottom: 20px; }
