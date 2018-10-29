@@ -10,6 +10,7 @@ const gulpif = require('gulp-if')
 const imagemin = require('gulp-imagemin')
 const babel = require('gulp-babel')
 const bro = require('gulp-bro')
+const babelify = require('babelify')
 
 const onError = (err) => {
     console.log(err);
@@ -66,14 +67,29 @@ gulp.task('sass', function () {
 // JS
 // -------------------------------------------------------------------------- //
 
+// gulp.task('js', function() {
+//     const bundler = browserify({
+//         entries: 'application.js',
+//         debug: true
+//     })
+//     bundler.transform(babelify, { presets: ['es2015'], plugins: ['transform-class-properties', 'array-includes', 'es6-promise', 'transform-object-rest-spread'] })
+//     bundler.bundle()
+//         .pipe(vinylSourceStream('application.js'))
+//         .pipe(vinylBuffer())
+//         .pipe(sourcemaps.init())
+//         .pipe(uglify())
+//         .pipe(sourcemaps.write())
+//         .pipe(gulp.dest('./ui/javascripts/*.js'))
+// })
+
 gulp.task('js', function (cb) {
-  pump([
+    pump([
         gulp.src('./ui/javascripts/*.js'),
         concat('application.js'),
         bro({
             error: 'emit',
             transform: [
-                ['babelify', { presets: ['env'], plugins: ['transform-class-properties'] }],
+                ['babelify', { presets: ['es2015'], plugins: ['transform-class-properties', 'array-includes', 'es6-promise', 'transform-object-rest-spread'] }],
                 ['browserify-shim', { global: true }]
             ]
         }),
@@ -81,8 +97,8 @@ gulp.task('js', function (cb) {
         gulp.dest('./assets/js')
     ],
     cb
-  );
-});
+    )
+})
 
 // -------------------------------------------------------------------------- //
 // IMAGES

@@ -11,7 +11,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.6.1",
     "babelify": "^8.0.0",
-    "browserify": "^16.1.1",
+    "browserify": "^16.2.3",
     "browserify-shim": "^3.8.14",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.1",
@@ -26,7 +26,13 @@
     "kss": "^3.0.0-beta.18",
     "pump": "^2.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "babel-plugin-array-includes": "^2.0.3",
+    "babel-plugin-es6-promise": "^1.1.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "dev": "^0.1.3"
+  },
   "browserify": {
     "transform": [
       "browserify-shim"
