@@ -1,4 +1,5 @@
 import Notification from './notification'
+import Lightbox from './lightbox'
 
 class Game {
     constructor() {
@@ -105,6 +106,7 @@ class Game {
 
         $('body').on('click', '[data-behaviour="upgrade"]', this.buildingsUpgrade)
         $('body').on('click', '[data-behaviour="train"]', this.trainTroops)
+        $('body').on('click', '[data-behaviour="start-quest"]', this.startQuest)
         $('[data-behaviour="save-game"]').on('click', this.saveGame)
         $('[data-behaviour="load-save"]').on('click', this.loadGame)
 
@@ -226,14 +228,14 @@ class Game {
         const questMap = `
         <div class="quest-map">
             <div class="quest-map__cell quest-map__cell--current"><span>1:1</div>
-            <div class="quest-map__cell">1:2</div>
-            <div class="quest-map__cell">1:3</div>
-            <div class="quest-map__cell">2:1</div>
-            <div class="quest-map__cell">2:2</div>
-            <div class="quest-map__cell">2:3</div>
-            <div class="quest-map__cell">3:1</div>
-            <div class="quest-map__cell">3:2</div>
-            <div class="quest-map__cell">3:3</div>
+            <div class="quest-map__cell" data-behaviour="start-quest" data-location="1:2">1:2</div>
+            <div class="quest-map__cell" data-behaviour="start-quest">1:3</div>
+            <div class="quest-map__cell" data-behaviour="start-quest">2:1</div>
+            <div class="quest-map__cell" data-behaviour="start-quest">2:2</div>
+            <div class="quest-map__cell" data-behaviour="start-quest">2:3</div>
+            <div class="quest-map__cell" data-behaviour="start-quest">3:1</div>
+            <div class="quest-map__cell" data-behaviour="start-quest">3:2</div>
+            <div class="quest-map__cell" data-behaviour="start-quest">3:3</div>
         </div>`
 
         const currentQuests = `
@@ -389,6 +391,15 @@ class Game {
         // Update new resource totals
         this.resourceInfo()
         this.saveGame()
+    }
+
+    startQuest = (e) => {
+        const questStart = `
+        <p class="bold">Start your quest</p>
+        <p>To start your quest, choose the units to embark below:</p>
+        <button type="button" data-behaviour="close-lightbox">Begin quest</button>
+        `
+        Lightbox.openLightbox(questStart)
     }
 
     cityNameChange = (e) => {

@@ -346,6 +346,43 @@ p {
   border-bottom: 1px solid rgba(0, 0, 0, 0.24);
   margin-bottom: 20px; }
 
+.lightbox {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  height: 100%;
+  width: 100%;
+  transition: opacity .3s, left 0;
+  transition-delay: 0 .3s;
+  background: rgba(0, 0, 0, 0.85);
+  box-sizing: border-box;
+  opacity: 0;
+  z-index: 100; }
+  .lightbox__close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    z-index: 100;
+    color: white;
+    font-size: 30px;
+    cursor: pointer; }
+  .lightbox__content {
+    background: white;
+    max-width: rem(500);
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    max-height: 60vh;
+    overflow: auto; }
+  .lightbox--is-open {
+    left: 0;
+    opacity: 1; }
+
 .marketplace {
   border-bottom: 1px solid rgba(0, 0, 0, 0.24);
   margin-bottom: 20px; }
