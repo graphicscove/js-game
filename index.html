@@ -13,20 +13,34 @@
             <!-- <div id="app" class="app"></div> -->
             <div data-element="city"></div>
             <div data-element="resources" class="resources"></div>
-            <div class="notification" data-element="notification">
-                <span data-element="custom-response">{A custom response goes here}</span>
-                <span data-behaviour="close-notification" class="close">X</span>
+            <ul class="tabs">
+                <li class="tabs__link" data-behaviour="tabs" data-target="tab1">Buildings</li>
+                <li class="tabs__link" data-behaviour="tabs" data-target="tab2">Research</li>
+                <li class="tabs__link" data-behaviour="tabs" data-target="tab3">Troops</li>
+                <li class="tabs__link" data-behaviour="tabs" data-target="tab4">Marketplace</li>
+                <li class="tabs__link" data-behaviour="tabs" data-target="tab5">Quests</li>
+            </ul>
+            <div class="tab-content">
+                <div class="notification" data-element="notification">
+                    <span data-element="custom-response">{A custom response goes here}</span>
+                    <span data-behaviour="close-notification" class="close">X</span>
+                </div>
+                <div class="tab-content__item" data-element="tab1">
+                    <div data-element="buildings" class="section"></div>
+                </div>
+                <div class="tab-content__item" data-element="tab2">
+                    <div data-element="research" class="section"><p>Coming soon</p></div>
+                </div>
+                <div class="tab-content__item" data-element="tab3">
+                    <div data-element="troops" class="section"></div>
+                </div>
+                <div class="tab-content__item" data-element="tab4">
+                    <div data-element="marketplace" class="section"></div>
+                </div>
+                <div class="tab-content__item" data-element="tab5">
+                    <div data-element="quests" class="section"><p>Coming soon</p></div>
+                </div>
             </div>
-            <h2>Buildings</h2>
-            <div data-element="buildings" class="section"></div>
-            <h2>Research</h2>
-            <div data-element="research" class="section">Coming soon</div>
-            <h2>Troops</h2>
-            <div data-element="troops" class="section"></div>
-            <h2>Marketplace</h2>
-            <div data-element="marketplace" class="section"></div>
-            <h2>Quests</h2>
-            <div data-element="quests" class="section">Coming soon</div>
 
             <p><label>Export your save game data here</label><br/>
             <div class="grid">

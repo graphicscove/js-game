@@ -1,0 +1,33 @@
+.tabs
+    display: flex
+    list-style: none
+    margin: 0 0 20px 0
+    padding: 0 0 20px 0
+    border-bottom: 1px solid rgba(0, 0, 0, 0.24)
+    overflow: auto
+
+    &:hover
+        cursor: pointer
+
+    @media(min-width: 600px)
+        justify-content: space-between
+
+    &__link
+        font-weight: bold
+        padding: 0 20px 0 0
+
+        &:last-child
+            padding-right: 0
+
+        &--active
+            text-decoration: underline
+
+            @media(min-width: 600px)
+                width: auto
+
+.tab-content
+    &__item
+        display: none
+
+        &--active
+            display: block
