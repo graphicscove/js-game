@@ -314,8 +314,7 @@ class Game {
         }
 
         function addPurchase() {
-            const currentCount = self.city.troops[upgradeType].count
-            self.city.troops[upgradeType].count = currentCount + 1
+            self.city.troops[upgradeType].count += 1
             self.troopsInfo()
             Notification.closeNotification()
         }
