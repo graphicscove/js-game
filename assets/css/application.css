@@ -301,6 +301,8 @@ h1 {
 p {
   margin-top: 0;
   margin-bottom: 1em; }
+  p.bold {
+    font-weight: 700; }
 
 .editable {
   text-decoration: underline;
@@ -348,6 +350,31 @@ p {
   border-bottom: 1px solid rgba(0, 0, 0, 0.24);
   margin-bottom: 20px; }
 
+.quest-map {
+  display: grid;
+  grid-template-rows: 100px 100px 100px;
+  grid-template-columns: 100px 100px 100px;
+  width: 300px;
+  margin: 0 auto 20px;
+  border: 1px solid black; }
+  .quest-map__cell {
+    display: grid;
+    justify-content: center;
+    box-sizing: border-box;
+    border: 1px solid black;
+    align-items: center; }
+    .quest-map__cell--occupied {
+      border-color: red; }
+    .quest-map__cell--available {
+      border-color: #32CD32; }
+    .quest-map__cell--current {
+      background-color: blue;
+      color: white; }
+    .quest-map__cell:hover:not(.quest-map__cell--current) {
+      background-color: #32CD32;
+      color: white;
+      cursor: pointer; }
+
 .resources {
   border-bottom: 1px solid rgba(0, 0, 0, 0.24);
   margin-bottom: 20px; }
@@ -355,7 +382,7 @@ p {
 .tabs {
   display: flex;
   list-style: none;
-  margin: 0 0 20px 0;
+  margin: 0 0 1em 0;
   padding: 0 0 20px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.24);
   overflow: auto; }

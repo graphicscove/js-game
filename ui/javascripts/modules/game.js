@@ -101,6 +101,7 @@ class Game {
         this.buildingsInfo()
         this.troopsInfo()
         this.marketplaceInfo()
+        this.questInfo()
 
         $('body').on('click', '[data-behaviour="upgrade"]', this.buildingsUpgrade)
         $('body').on('click', '[data-behaviour="train"]', this.trainTroops)
@@ -204,6 +205,45 @@ class Game {
             self.troopsTemplate += troopsTemplate
         });
         $('[data-element="troops"]').html(this.troopsTemplate)
+    }
+
+    // HTML output to show the quest map and quests
+    questInfo = (e) => {
+        const self = this
+        this.questTemplate = ''
+        // this.availableUnits = ''
+        // this.availableUnits += `<p class="bold">Available Units</p>`
+
+        // Object.keys(this.city.troops).map(function(objectKey, index) {
+        //     const name = self.city.troops[objectKey].name
+        //     const count = self.city.troops[objectKey].count
+        //     const units = `${name} - ${count}`
+        //     self.availableUnits += units
+        // })
+        //
+        // console.log(this.availableUnits);
+
+        const questMap = `
+        <div class="quest-map">
+            <div class="quest-map__cell quest-map__cell--current"><span>1:1</div>
+            <div class="quest-map__cell">1:2</div>
+            <div class="quest-map__cell">1:3</div>
+            <div class="quest-map__cell">2:1</div>
+            <div class="quest-map__cell">2:2</div>
+            <div class="quest-map__cell">2:3</div>
+            <div class="quest-map__cell">3:1</div>
+            <div class="quest-map__cell">3:2</div>
+            <div class="quest-map__cell">3:3</div>
+        </div>`
+
+        const currentQuests = `
+        <p class="bold">Current Quests</p>
+        <p>No current Quests</p>`
+
+        // this.questTemplate += this.availableUnits
+        this.questTemplate += questMap
+        this.questTemplate += currentQuests
+        $('[data-element="quests"]').html(this.questTemplate)
     }
 
     // Resource multiplier times building level increases resources

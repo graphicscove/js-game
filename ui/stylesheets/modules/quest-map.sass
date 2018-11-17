@@ -1,0 +1,30 @@
+.quest-map
+    display: grid
+    grid-template-rows: 100px 100px 100px
+    grid-template-columns: 100px 100px 100px
+    width: 300px
+    margin: 0 auto 20px
+    border: 1px solid black
+
+    &__cell
+        display: grid
+        justify-content: center
+        box-sizing: border-box
+        border: 1px solid black
+        align-items: center
+
+        &--occupied
+            border-color: red
+
+        &--available
+            border-color: #32CD32
+
+        &--current
+            background-color: blue
+            color: white
+
+        &:hover
+            &:not(.quest-map__cell--current)
+                background-color: #32CD32
+                color: white
+                cursor: pointer
