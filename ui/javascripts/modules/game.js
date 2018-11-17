@@ -270,8 +270,8 @@ class Game {
             Notification.closeNotification()
         }
 
-        // Update new resource totals
         this.resourceInfo()
+        this.saveGame()
     }
 
     // Train troops
@@ -320,8 +320,8 @@ class Game {
             Notification.closeNotification()
         }
 
-        // Update new resource totals
         this.resourceInfo()
+        this.saveGame()
     }
 
     marketplaceInfo = (e) => {
@@ -349,6 +349,7 @@ class Game {
 
         // Update new resource totals
         this.resourceInfo()
+        this.saveGame()
     }
 
     cityNameChange = (e) => {
