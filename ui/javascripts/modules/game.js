@@ -235,8 +235,6 @@ class Game {
             return false;
         }
 
-        Notification.openNotification('success', `Upgrade of ${upgradeType} in progress`)
-
         let timer = 1000
         const self = this
 
@@ -257,11 +255,14 @@ class Game {
         var tm = setInterval(countDown, 1000);
         function countDown(){
            timer -= 1000;
+           $('[data-element="countdown"]').html(self.millisToMinutesAndSeconds(timer))
            if(timer === 0){
               clearInterval(tm)
               updateLevel()
            }
         }
+
+        Notification.openNotification('success', `Upgrade of ${upgradeType} in progress. Time remaining: <span data-element="countdown">Starting...</span>`)
 
         function updateLevel() {
             self.city.buildings[upgradeType].level = Number(Object.assign(newLevel, self.city.buildings[upgradeType].level))
@@ -353,6 +354,12 @@ class Game {
     cityNameChange = (e) => {
         const newName = $(e.currentTarget).text()
         this.city.name = newName
+    }
+
+    millisToMinutesAndSeconds = (millis) => {
+      var minutes = Math.floor(millis / 60000);
+      var seconds = ((millis % 60000) / 1000).toFixed(0);
+      return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
     }
 
     saveGame = (e) => {
