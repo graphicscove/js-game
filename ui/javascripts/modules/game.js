@@ -246,6 +246,7 @@ class Game {
         this.questTemplate += questMap
         this.questTemplate += currentQuests
         $('[data-element="quests"]').html(this.questTemplate)
+        $('[data-behaviour="start-quest"]').on('click', this.startQuest)
     }
 
     // Resource multiplier times building level increases resources

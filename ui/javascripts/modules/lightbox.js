@@ -7,7 +7,7 @@ class Lightbox {
         this.close = $('[data-behaviour="close-lightbox"]')
 
         this.trigger.on('click', this.openLightbox)
-        $('body').on('click', this.close, this.closeLightbox)
+        this.close.on('click', this.closeLightbox)
     }
 
     openLightbox = (content = 'No content') => {
